@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 
-function Search() {
+function Search({ listings, updateListings, searchQuery, setSearchQuery }) {
+  
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("submitted");
+    const searchedListing = listings.filter(listing => (
+      listing.description.toLowerCase().includes(searchQuery)
+    ))
+   updateListings(searchedListing)
+   
   }
 
   return (
@@ -12,8 +18,8 @@ function Search() {
         type="text"
         id="search"
         placeholder="search free stuff"
-        value={""}
-        onChange={(e) => console.log(e.target.value)}
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
       />
       <button type="submit">🔍</button>
     </form>
